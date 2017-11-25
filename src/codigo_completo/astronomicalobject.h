@@ -10,6 +10,7 @@ public :
 
     //Orbit
     float orbitSpeed = 0;
+    float orbitDistance = 0;
     float orbitAnglePhi = 0;
     float orbitAngleTheta = 0;
     AstronomicalObject* orbitObject = nullptr;

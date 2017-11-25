@@ -11,6 +11,7 @@ public:
 
     std::shared_ptr<AstronomicalObject> GetSun();
     std::shared_ptr<AstronomicalObject> GetEarth(std::shared_ptr<AstronomicalObject> sun);
+    std::shared_ptr<AstronomicalObject> GetMoon(std::shared_ptr<AstronomicalObject> earth);
 
 protected:
      QOpenGLWidget* glWidget;

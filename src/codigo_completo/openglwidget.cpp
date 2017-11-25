@@ -122,9 +122,11 @@ void OpenGLWidget::keyPressEvent(QKeyEvent *event)
 void OpenGLWidget::start(){
     auto sun = factory->GetSun();
     auto earth = factory->GetEarth(sun);
+    auto moon = factory->GetMoon(earth);
 
     objects.push_back(sun);
     objects.push_back(earth);
+    objects.push_back(moon);
 
     update();
 }

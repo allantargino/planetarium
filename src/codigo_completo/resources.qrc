@@ -23,6 +23,7 @@
     <qresource prefix="/images">
         <file>textures/earth.jpg</file>
         <file>textures/sun.jpg</file>
+        <file>textures/moon.jpg</file>
     </qresource>
     <qresource prefix="/offmodels">
         <file>offmodels/sphere.off</file>
