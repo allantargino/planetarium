@@ -20,7 +20,9 @@ SOURCES += main.cpp\
     material.cpp \
     camera.cpp \
     trackball.cpp \
-    model.cpp
+    model.cpp \
+    modelfactory.cpp \
+    astronomicalobject.cpp
 
 HEADERS  += mainwindow.h \
     openglwidget.h \

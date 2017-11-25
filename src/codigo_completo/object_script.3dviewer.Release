@@ -7,6 +7,8 @@ INPUT(
 ./release\camera.o
 ./release\trackball.o
 ./release\model.o
+./release\modelfactory.o
+./release\astronomicalobject.o
 ./release\qrc_resources.o
 ./release\moc_mainwindow.o
 ./release\moc_openglwidget.o

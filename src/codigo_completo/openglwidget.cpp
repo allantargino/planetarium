@@ -2,12 +2,13 @@
 
 OpenGLWidget::OpenGLWidget(QWidget * parent) : QOpenGLWidget(parent)
 {
+    factory = std::make_unique<ModelFactory>(this);
 }
 
 void OpenGLWidget::wheelEvent(QWheelEvent *event)
 {
-   if(!model) return;
-   this->model->zoom += 0.001 * event->delta();
+   //if(!model) return;
+   //this->model->zoom += 0.001 * event->delta();
 }
 
 void OpenGLWidget::initializeGL()
@@ -27,14 +28,14 @@ void OpenGLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    if (!model)
+    if (objects.size()==0)
         return;
 
-    int shaderProgramID = model->shaderProgram[model->shaderIndex];
+    int shaderProgramID = objects[0]->shaderProgram[objects[0]->shaderIndex];
 
-    QVector4D ambientProduct = light.ambient * model->material.ambient;
-    QVector4D diffuseProduct = light.diffuse * model->material.diffuse;
-    QVector4D specularProduct = light.specular * model->material.specular;
+    QVector4D ambientProduct = light.ambient * objects[0]->material.ambient;
+    QVector4D diffuseProduct = light.diffuse * objects[0]->material.diffuse;
+    QVector4D specularProduct = light.specular * objects[0]->material.specular;
 
     GLuint locProjection = glGetUniformLocation(shaderProgramID, "projection");
     GLuint locView = glGetUniformLocation(shaderProgramID, "view");
@@ -52,9 +53,9 @@ void OpenGLWidget::paintGL()
     glUniform4fv(locAmbientProduct, 1, &(ambientProduct[0]));
     glUniform4fv(locDiffuseProduct, 1, &(diffuseProduct[0]));
     glUniform4fv(locSpecularProduct, 1, &(specularProduct[0]));
-    glUniform1f(locShininess, model->material.shininess);
+    glUniform1f(locShininess, objects[0]->material.shininess);
 
-    model->drawModel();
+    objects[0]->drawModel();
 }
 
 void OpenGLWidget::resizeGL(int width, int height)
@@ -62,8 +63,8 @@ void OpenGLWidget::resizeGL(int width, int height)
     glViewport(0, 0, width, height);
     camera.resizeViewport(width, height);
 
-    if (model)
-        model->trackBall.resizeViewport(width, height);
+    if (objects.size()>0)
+        objects[0]->trackBall.resizeViewport(width, height);
     update();
 }
 
@@ -75,28 +76,28 @@ void OpenGLWidget::animate()
 
 void OpenGLWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    if (!model)
+    if (!objects[0])
         return;
 
-    model->trackBall.mouseMove(event->localPos());
+    objects[0]->trackBall.mouseMove(event->localPos());
 }
 
 void OpenGLWidget::mousePressEvent(QMouseEvent *event)
 {
-    if (!model)
+    if (!objects[0])
         return;
 
     if (event->button() & Qt::LeftButton)
-        model->trackBall.mousePress(event->localPos());
+        objects[0]->trackBall.mousePress(event->localPos());
 }
 
 void OpenGLWidget::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (!model)
+    if (!objects[0])
         return;
 
     if (event->button() & Qt::LeftButton)
-        model->trackBall.mouseRelease(event->localPos());
+        objects[0]->trackBall.mouseRelease(event->localPos());
 }
 
 // Strong focus is required
@@ -109,31 +110,8 @@ void OpenGLWidget::keyPressEvent(QKeyEvent *event)
 }
 
 void OpenGLWidget::start(){
-    //Offmodel
-    QString fileName = ".\\offmodels\\sphere.off";
-    int shaderIndex = 5;
-    if (!fileName.isEmpty())
-    {
-        if (model)
-            shaderIndex = model->shaderIndex;
-
-        model = std::make_shared<Model>(this);
-        model->shaderIndex = shaderIndex;
-        model->readOFFFile(fileName);
-
-        model->trackBall.resizeViewport(width(), height());
-    }
-
-    //Texture
-    QString textureFileName = ".\\textures\\sun.jpg";
-    if (!textureFileName.isEmpty() && model)
-    {
-        QImage image;
-        image.load(textureFileName);
-        image = image.convertToFormat(QImage::Format_RGBA8888);
-
-        model->loadTexture(image);
-    }
+    auto sun = factory->GetSun();
+    objects.push_back(sun);
 
     update();
 }

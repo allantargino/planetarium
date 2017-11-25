@@ -6,10 +6,15 @@
 class ModelFactory
 {
 public :
-    ModelFactory();
+    ModelFactory(QOpenGLWidget *_glWidget);
+    ~ModelFactory();
 
-private:
-    Planet LoadSun();
+    std::shared_ptr<AstronomicalObject> GetSun();
+
+protected:
+     QOpenGLWidget* glWidget;
+
+     QImage GetTexture(const QString textureFileName);
 };
 
 #endif // MODELFACTORY_H

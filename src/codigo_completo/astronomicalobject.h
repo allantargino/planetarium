@@ -1,10 +1,12 @@
 #ifndef ASTRONOMICALOBJECT_H
 #define ASTRONOMICALOBJECT_H
 
-class AstronomicalObject
+#include "model.h"
+
+class AstronomicalObject: public Model
 {
 public :
-    AstronomicalObject();
+    AstronomicalObject(QOpenGLWidget* _glWidget);
 
 };
 
