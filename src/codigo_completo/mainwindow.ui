@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>600</height>
+    <width>799</width>
+    <height>546</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,16 +32,6 @@
      </widget>
     </item>
     <item>
-     <widget class="QCheckBox" name="bkgndColorCheckBox">
-      <property name="text">
-       <string>Black background</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item>
      <widget class="QWidget" name="shaderWidget" native="true">
       <layout class="QHBoxLayout" name="horizontalLayout">
        <property name="leftMargin">
@@ -56,74 +46,6 @@
        <property name="bottomMargin">
         <number>0</number>
        </property>
-       <item>
-        <widget class="QLabel" name="shaderLabel">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Shader:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="shaderComboBox">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="currentIndex">
-          <number>0</number>
-         </property>
-         <item>
-          <property name="text">
-           <string>0 - vShader1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>1 - Flat</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2 - Gouraud</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>3 - Phong</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>4 - Normal</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>5 - Texture</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>6 - Multiple Texture</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>7 - Normal Mapping</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>8 - Cube Mapping</string>
-          </property>
-         </item>
-        </widget>
-       </item>
       </layout>
      </widget>
     </item>
@@ -134,31 +56,22 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
-     <height>22</height>
+     <width>799</width>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>&amp;File</string>
     </property>
-    <addaction name="actionOpen_File"/>
+    <addaction name="actionStart"/>
     <addaction name="separator"/>
     <addaction name="actionE_xit"/>
    </widget>
-   <widget class="QMenu" name="menuTExture">
-    <property name="title">
-     <string>&amp;Texture</string>
-    </property>
-    <addaction name="actionLoad_Texture"/>
-    <addaction name="actionLoad_Texture_Layer"/>
-    <addaction name="actionLoad_Cube_Folder"/>
-   </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuTExture"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionOpen_File">
+  <action name="actionStart">
    <property name="text">
     <string>&amp;Open...</string>
    </property>
@@ -197,88 +110,17 @@
    <extends>QOpenGLWidget</extends>
    <header>openglwidget.h</header>
    <slots>
-    <signal>statusBarMessage(QString)</signal>
-    <signal>enableComboShaders(bool)</signal>
-    <slot>showFileOpenDialog()</slot>
-    <slot>changeShader(int)</slot>
-    <slot>loadTexture()</slot>
-    <slot>loadTextureLayer()</slot>
-    <slot>loadCubeFolder()</slot>
-    <slot>toggleBackgroundColor(bool)</slot>
+    <slot>start()</slot>
    </slots>
   </customwidget>
  </customwidgets>
  <resources/>
  <connections>
   <connection>
-   <sender>actionOpen_File</sender>
+   <sender>actionStart</sender>
    <signal>triggered()</signal>
    <receiver>openGLWidget</receiver>
-   <slot>showFileOpenDialog()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>317</x>
-     <y>207</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>openGLWidget</sender>
-   <signal>statusBarMessage(QString)</signal>
-   <receiver>statusBar</receiver>
-   <slot>showMessage(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>317</x>
-     <y>207</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>317</x>
-     <y>392</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>shaderComboBox</sender>
-   <signal>currentIndexChanged(int)</signal>
-   <receiver>openGLWidget</receiver>
-   <slot>changeShader(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>299</x>
-     <y>363</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>299</x>
-     <y>194</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>openGLWidget</sender>
-   <signal>enableComboShaders(bool)</signal>
-   <receiver>shaderComboBox</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>299</x>
-     <y>194</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>299</x>
-     <y>363</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionLoad_Texture</sender>
-   <signal>triggered()</signal>
-   <receiver>openGLWidget</receiver>
-   <slot>loadTexture()</slot>
+   <slot>start()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -286,71 +128,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>299</x>
-     <y>194</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionLoad_Texture_Layer</sender>
-   <signal>triggered()</signal>
-   <receiver>openGLWidget</receiver>
-   <slot>loadTextureLayer()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>299</x>
-     <y>194</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionLoad_Cube_Folder</sender>
-   <signal>triggered()</signal>
-   <receiver>openGLWidget</receiver>
-   <slot>loadCubeFolder()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>299</x>
-     <y>194</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionE_xit</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>299</x>
-     <y>201</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>bkgndColorCheckBox</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>openGLWidget</receiver>
-   <slot>toggleBackgroundColor(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>299</x>
-     <y>512</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>299</x>
-     <y>263</y>
+     <y>269</y>
     </hint>
    </hints>
   </connection>

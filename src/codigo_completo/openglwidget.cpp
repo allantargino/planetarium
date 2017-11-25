@@ -4,14 +4,6 @@ OpenGLWidget::OpenGLWidget(QWidget * parent) : QOpenGLWidget(parent)
 {
 }
 
-void OpenGLWidget::changeShader(int shaderIndex)
-{
-    if (!model)
-        return;
-    model->shaderIndex = shaderIndex;
-    update();
-}
-
 void OpenGLWidget::wheelEvent(QWheelEvent *event)
 {
    if(!model) return;
@@ -75,33 +67,6 @@ void OpenGLWidget::resizeGL(int width, int height)
     update();
 }
 
-void OpenGLWidget::showFileOpenDialog()
-{
-    QByteArray fileFormat = "off";
-    QString fileName = QFileDialog::getOpenFileName(this,
-        "Open File", QDir::homePath(),
-        QString("\%1 Files (*.\%2)").arg(QString(fileFormat.toUpper())).arg(QString(fileFormat)), 0
-#ifdef Q_OS_LINUX
-        , QFileDialog::DontUseNativeDialog
-#endif
-    );
-    int shaderIndex = 0;
-    if (!fileName.isEmpty())
-    {
-        if (model)
-            shaderIndex = model->shaderIndex;
-
-        model = std::make_shared<Model>(this);
-        model->shaderIndex = shaderIndex;
-        model->readOFFFile(fileName);
-
-        model->trackBall.resizeViewport(width(), height());
-
-        emit statusBarMessage(QString("Vertices: \%1, Faces: \%2").arg(model->numVertices).arg(model->numFaces));
-        emit enableComboShaders(true);
-    }
-    update();
-}
 
 void OpenGLWidget::animate()
 {
@@ -134,62 +99,6 @@ void OpenGLWidget::mouseReleaseEvent(QMouseEvent *event)
         model->trackBall.mouseRelease(event->localPos());
 }
 
-void OpenGLWidget::loadTexture()
-{
-    QString fileName = QFileDialog::getOpenFileName(this,
-        QString("Open Image File"), "",
-        QString("JPEG (*.jpg *.jpeg);;PNG (*.png)"), 0
-#ifdef Q_OS_LINUX
-        , QFileDialog::DontUseNativeDialog
-#endif
-                                                   );
-    if (!fileName.isEmpty() && model)
-    {
-        QImage image;
-        image.load(fileName);
-        image = image.convertToFormat(QImage::Format_RGBA8888);
-
-        model->loadTexture(image);
-    }
-    update();
-}
-
-void OpenGLWidget::loadTextureLayer()
-{
-    QString fileName = QFileDialog::getOpenFileName(this,
-        QString("Open Image File"), "",
-        QString("JPEG (*.jpg *.jpeg);;PNG (*.png)"), 0
-#ifdef Q_OS_LINUX
-        , QFileDialog::DontUseNativeDialog
-#endif
-                                                    );
-    if (!fileName.isEmpty() && model)
-    {
-        QImage image;
-        image.load(fileName);
-        image = image.convertToFormat(QImage::Format_RGBA8888);
-
-        model->loadTextureLayer(image);
-    }
-    update();
-}
-
-void OpenGLWidget::loadCubeFolder()
-{
-    QString folderName = QFileDialog::getExistingDirectory(this,
-        QString("Open Directory"), "",
-        QFileDialog::ShowDirsOnly
-#ifdef Q_OS_LINUX
-        | QFileDialog::DontUseNativeDialog
-#endif
-                                                           );
-    if (!folderName.isEmpty() && model)
-    {
-        //model->loadCubeMapTexture(folderName);
-    }
-    update();
-}
-
 // Strong focus is required
 void OpenGLWidget::keyPressEvent(QKeyEvent *event)
 {
@@ -199,14 +108,32 @@ void OpenGLWidget::keyPressEvent(QKeyEvent *event)
     }
 }
 
-void OpenGLWidget::toggleBackgroundColor(bool changeBColor)
-{
-    makeCurrent();
+void OpenGLWidget::start(){
+    //Offmodel
+    QString fileName = ".\\offmodels\\sphere.off";
+    int shaderIndex = 5;
+    if (!fileName.isEmpty())
+    {
+        if (model)
+            shaderIndex = model->shaderIndex;
 
-    if (changeBColor)
-         glClearColor(0, 0, 0, 1);
-    else
-         glClearColor(1, 1, 1, 1);
+        model = std::make_shared<Model>(this);
+        model->shaderIndex = shaderIndex;
+        model->readOFFFile(fileName);
+
+        model->trackBall.resizeViewport(width(), height());
+    }
+
+    //Texture
+    QString textureFileName = ".\\textures\\sun.jpg";
+    if (!textureFileName.isEmpty() && model)
+    {
+        QImage image;
+        image.load(textureFileName);
+        image = image.convertToFormat(QImage::Format_RGBA8888);
+
+        model->loadTexture(image);
+    }
 
     update();
 }

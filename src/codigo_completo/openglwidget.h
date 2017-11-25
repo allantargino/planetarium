@@ -5,7 +5,6 @@
 #include <QOpenGLWidget>
 #include <QOpenGLExtraFunctions>
 
-
 #include "light.h"
 #include "model.h"
 #include "camera.h"
@@ -25,18 +24,9 @@ public:
 
     QTimer timer;
 
-signals:
-    void statusBarMessage(QString);
-    void enableComboShaders(bool);
-
 public slots:
-    void showFileOpenDialog();
-    void loadTexture();
-    void loadTextureLayer();
-    void loadCubeFolder();
-    void changeShader(int);
     void animate();
-    void toggleBackgroundColor(bool);
+    void start();
 
 protected:
     void initializeGL();

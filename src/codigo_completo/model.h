@@ -53,11 +53,6 @@ public:
 
     void destroyVBOs();
     void destroyShaders();
-   // void destroyNormals();
-
-    void readOFFFile(const QString &fileName);
-    void loadTexture(const QImage &image);
-    void loadTextureLayer(const QImage &image);
 
     void drawModel();
 
@@ -74,6 +69,9 @@ public:
     std::vector<GLuint> shaderProgram;
 
     TrackBall trackBall;
+
+    void readOFFFile(const QString &fileName);
+    void loadTexture(const QImage &image);
 };
 
 #endif // MODEL_H

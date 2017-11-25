@@ -24,4 +24,7 @@
         <file>textures/earth.jpg</file>
         <file>textures/sun.jpg</file>
     </qresource>
+    <qresource prefix="/offmodels">
+        <file>offmodels/sphere.off</file>
+    </qresource>
 </RCC>
