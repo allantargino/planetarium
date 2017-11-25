@@ -13,11 +13,9 @@
 #include <memory>
 
 #include "light.h"
-
 #include "trackball.h"
-#include "util.h"
-
 #include "material.h"
+
 class Model : public QOpenGLExtraFunctions
 {
 public:
@@ -60,7 +58,6 @@ public:
     void readOFFFile(const QString &fileName);
     void loadTexture(const QImage &image);
     void loadTextureLayer(const QImage &image);
-    void loadCubeMapTexture(QString);
 
     void drawModel();
 

@@ -185,7 +185,7 @@ void OpenGLWidget::loadCubeFolder()
                                                            );
     if (!folderName.isEmpty() && model)
     {
-        model->loadCubeMapTexture(folderName);
+        //model->loadCubeMapTexture(folderName);
     }
     update();
 }

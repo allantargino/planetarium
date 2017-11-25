@@ -28,8 +28,7 @@ HEADERS  += mainwindow.h \
     material.h \
     camera.h \
     trackball.h \
-    model.h \
-    util.h
+    model.h
 
 FORMS    += mainwindow.ui
 

@@ -19,13 +19,13 @@ Model::~Model()
 
 void Model::destroyVBOs()
 {
-    GL_CHECK(glDeleteBuffers(1, &vboVertices));
-    GL_CHECK(glDeleteBuffers(1, &vboIndices));
-    GL_CHECK(glDeleteBuffers(1, &vboNormals));
-    GL_CHECK(glDeleteBuffers(1, &vboTexCoords));
-    GL_CHECK(glDeleteBuffers(1, &vboTangents));
+    glDeleteBuffers(1, &vboVertices);
+    glDeleteBuffers(1, &vboIndices);
+    glDeleteBuffers(1, &vboNormals);
+    glDeleteBuffers(1, &vboTexCoords);
+    glDeleteBuffers(1, &vboTangents);
 
-    GL_CHECK(glDeleteVertexArrays(1, &vao));
+    glDeleteVertexArrays(1, &vao);
 
     vboVertices = 0;
     vboIndices = 0;
@@ -41,41 +41,41 @@ void Model::createVBOs()
 
     destroyVBOs();
 
-    GL_CHECK(glGenVertexArrays(1, &vao));
-    GL_CHECK(glBindVertexArray(vao));
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
 
-    GL_CHECK(glGenBuffers(1, &vboVertices));
-    GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, vboVertices));
-    GL_CHECK(glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(QVector4D), vertices.get(), GL_STATIC_DRAW));
-    GL_CHECK(glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, nullptr));
-    GL_CHECK(glEnableVertexAttribArray(0));
+    glGenBuffers(1, &vboVertices);
+    glBindBuffer(GL_ARRAY_BUFFER, vboVertices);
+    glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(QVector4D), vertices.get(), GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glEnableVertexAttribArray(0);
     vertices.reset();
 
-    GL_CHECK(glGenBuffers(1, &vboNormals));
-    GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, vboNormals));
-    GL_CHECK(glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(QVector3D), normals.get(), GL_STATIC_DRAW));
-    GL_CHECK(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr));
-    GL_CHECK(glEnableVertexAttribArray(1));
+    glGenBuffers(1, &vboNormals);
+    glBindBuffer(GL_ARRAY_BUFFER, vboNormals);
+    glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(QVector3D), normals.get(), GL_STATIC_DRAW);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glEnableVertexAttribArray(1);
     normals.reset();
 
-    GL_CHECK(glGenBuffers(1, &vboTexCoords));
-    GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, vboTexCoords));
-    GL_CHECK(glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(QVector2D), texCoords.get(), GL_STATIC_DRAW));
-    GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, vboTexCoords));
-    GL_CHECK(glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr));
-    GL_CHECK(glEnableVertexAttribArray(2));
+    glGenBuffers(1, &vboTexCoords);
+    glBindBuffer(GL_ARRAY_BUFFER, vboTexCoords);
+    glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(QVector2D), texCoords.get(), GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, vboTexCoords);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glEnableVertexAttribArray(2);
     texCoords.reset();
 
-    GL_CHECK(glGenBuffers(1, &vboTangents));
-    GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, vboTangents));
-    GL_CHECK(glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(QVector4D), tangents.get(), GL_STATIC_DRAW));
-    GL_CHECK(glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, 0, nullptr));
-    GL_CHECK(glEnableVertexAttribArray(3));
+    glGenBuffers(1, &vboTangents);
+    glBindBuffer(GL_ARRAY_BUFFER, vboTangents);
+    glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(QVector4D), tangents.get(), GL_STATIC_DRAW);
+    glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glEnableVertexAttribArray(3);
     tangents.reset();
 
-    GL_CHECK(glGenBuffers(1, &vboIndices));
-    GL_CHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboIndices));
-    GL_CHECK(glBufferData(GL_ELEMENT_ARRAY_BUFFER, numFaces * 3 * sizeof(unsigned int), indices.get(), GL_STATIC_DRAW));
+    glGenBuffers(1, &vboIndices);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboIndices);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, numFaces * 3 * sizeof(unsigned int), indices.get(), GL_STATIC_DRAW);
     indices.reset();
 }
 
@@ -84,7 +84,7 @@ void Model::destroyShaders ()
 {
     for (GLuint shaderProgramID : shaderProgram)
     {
-        GL_CHECK(glDeleteProgram(shaderProgramID));
+        glDeleteProgram(shaderProgramID);
     }
     shaderProgram.clear();
 }
@@ -135,55 +135,55 @@ void Model::createShaders ()
 
         // Create an empty vertex shader handle
         GLuint vertexShader = 0;
-        GL_CHECK(vertexShader = glCreateShader(GL_VERTEX_SHADER));
+        vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
         // Send the vertex shader source code to GL
         const GLchar *source = stdStringVs.c_str();
 
-        GL_CHECK(glShaderSource(vertexShader, 1, &source, 0));
+        glShaderSource(vertexShader, 1, &source, 0);
 
         // Compile the vertex shader
-        GL_CHECK(glCompileShader(vertexShader));
+        glCompileShader(vertexShader);
 
         GLint isCompiled = 0;
-        GL_CHECK(glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &isCompiled));
+        glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &isCompiled);
         if (isCompiled == GL_FALSE)
         {
             GLint maxLength = 0;
-            GL_CHECK(glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &maxLength));
+            glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &maxLength);
             // The maxLength includes the NULL character
             std::vector<GLchar> infoLog(maxLength);
-            GL_CHECK(glGetShaderInfoLog(vertexShader, maxLength, &maxLength, &infoLog[0]));
+            glGetShaderInfoLog(vertexShader, maxLength, &maxLength, &infoLog[0]);
             qDebug("%s", &infoLog[0]);
 
-            GL_CHECK(glDeleteShader(vertexShader));
+            glDeleteShader(vertexShader);
             return;
         }
 
         // Create an empty fragment shader handle
         GLuint fragmentShader = 0;
-        GL_CHECK(fragmentShader = glCreateShader(GL_FRAGMENT_SHADER));
+        fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
         // Send the fragment shader source code to GL
         // Note that std::string's .c_str is NULL character terminated.
         source = stdStringFs.c_str();//(const GLchar *)stringFs.toStdString().c_str();
-        GL_CHECK(glShaderSource(fragmentShader, 1, &source, 0));
+        glShaderSource(fragmentShader, 1, &source, 0);
 
         // Compile the fragment shader
-        GL_CHECK(glCompileShader(fragmentShader));
+        glCompileShader(fragmentShader);
 
-        GL_CHECK(glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &isCompiled));
+        glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &isCompiled);
         if (isCompiled == GL_FALSE)
         {
             GLint maxLength = 0;
-            GL_CHECK(glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &maxLength));
+            glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &maxLength);
 
             std::vector<GLchar> infoLog(maxLength);
-            GL_CHECK(glGetShaderInfoLog(fragmentShader, maxLength, &maxLength, &infoLog[0]));
+            glGetShaderInfoLog(fragmentShader, maxLength, &maxLength, &infoLog[0]);
             qDebug("%s", &infoLog[0]);
 
-            GL_CHECK(glDeleteShader(fragmentShader));
-            GL_CHECK(glDeleteShader(vertexShader));
+            glDeleteShader(fragmentShader);
+            glDeleteShader(vertexShader);
             return;
         }
 
@@ -191,40 +191,40 @@ void Model::createShaders ()
         // Now time to link them together into a program.
         // Get a program object.
         GLuint shaderProgramID = 0;
-        GL_CHECK(shaderProgramID = glCreateProgram());
+        shaderProgramID = glCreateProgram();
         shaderProgram.push_back(shaderProgramID);
 
         // Attach our shaders to our program
-        GL_CHECK(glAttachShader(shaderProgramID, vertexShader));
-        GL_CHECK(glAttachShader(shaderProgramID, fragmentShader));
+        glAttachShader(shaderProgramID, vertexShader);
+        glAttachShader(shaderProgramID, fragmentShader);
 
         // Link our program
-        GL_CHECK(glLinkProgram(shaderProgramID));
+        glLinkProgram(shaderProgramID);
 
         // Note the different functions here: glGetProgram* instead of glGetShader*.
         GLint isLinked = 0;
-        GL_CHECK(glGetProgramiv(shaderProgramID, GL_LINK_STATUS, (int *)&isLinked));
+        glGetProgramiv(shaderProgramID, GL_LINK_STATUS, (int *)&isLinked);
         if (isLinked == GL_FALSE)
         {
             GLint maxLength = 0;
-            GL_CHECK(glGetProgramiv(shaderProgramID, GL_INFO_LOG_LENGTH, &maxLength));
+            glGetProgramiv(shaderProgramID, GL_INFO_LOG_LENGTH, &maxLength);
 
             // The maxLength includes the NULL character
             std::vector<GLchar> infoLog(maxLength);
-            GL_CHECK(glGetProgramInfoLog(shaderProgramID, maxLength, &maxLength, &infoLog[0]));
+            glGetProgramInfoLog(shaderProgramID, maxLength, &maxLength, &infoLog[0]);
             qDebug("%s", &infoLog[0]);
 
-            GL_CHECK(glDeleteProgram(shaderProgramID));
-            GL_CHECK(glDeleteShader(vertexShader));
-            GL_CHECK(glDeleteShader(fragmentShader));
+            glDeleteProgram(shaderProgramID);
+            glDeleteShader(vertexShader);
+            glDeleteShader(fragmentShader);
             return;
         }
 
-        GL_CHECK(glDetachShader(shaderProgramID, vertexShader));
-        GL_CHECK(glDetachShader(shaderProgramID, fragmentShader));
+        glDetachShader(shaderProgramID, vertexShader);
+        glDetachShader(shaderProgramID, fragmentShader);
 
-        GL_CHECK(glDeleteShader(vertexShader));
-        GL_CHECK(glDeleteShader(fragmentShader));
+        glDeleteShader(vertexShader);
+        glDeleteShader(fragmentShader);
 
         vs.close();
         fs.close();
@@ -242,43 +242,43 @@ void Model::drawModel()
     GLuint locModel = 0;
     GLuint locNormalMatrix = 0;
     GLuint locShininess = 0;
-    GL_CHECK(locModel = glGetUniformLocation(shaderProgram[shaderIndex], "model"));
-    GL_CHECK(locNormalMatrix = glGetUniformLocation(shaderProgram[shaderIndex], "normalMatrix"));
-    GL_CHECK(locShininess = glGetUniformLocation(shaderProgram[shaderIndex], "shininess"));
+    locModel = glGetUniformLocation(shaderProgram[shaderIndex], "model");
+    locNormalMatrix = glGetUniformLocation(shaderProgram[shaderIndex], "normalMatrix");
+    locShininess = glGetUniformLocation(shaderProgram[shaderIndex], "shininess");
 
-    GL_CHECK(glBindVertexArray(vao));
+    glBindVertexArray(vao);
    // GL_CHECK(glUseProgram(shaderProgram[shaderIndex]));
 
-    GL_CHECK(glUniformMatrix4fv(locModel, 1, GL_FALSE, modelMatrix.data()));
-    GL_CHECK(glUniformMatrix3fv(locNormalMatrix, 1, GL_FALSE, modelMatrix.normalMatrix().data()));
-    GL_CHECK(glUniform1f(locShininess, static_cast<GLfloat>(material.shininess)));
+    glUniformMatrix4fv(locModel, 1, GL_FALSE, modelMatrix.data());
+    glUniformMatrix3fv(locNormalMatrix, 1, GL_FALSE, modelMatrix.normalMatrix().data());
+    glUniform1f(locShininess, static_cast<GLfloat>(material.shininess));
 
     if (textureID)
     {
         GLuint locColorTexture = 0;
-        GL_CHECK(locColorTexture = glGetUniformLocation(shaderProgram[shaderIndex], "colorTexture"));
+        locColorTexture = glGetUniformLocation(shaderProgram[shaderIndex], "colorTexture");
         glUniform1i(locColorTexture, 0);
 
-        GL_CHECK(glActiveTexture(GL_TEXTURE0));
-        GL_CHECK(glBindTexture(GL_TEXTURE_2D, textureID));
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, textureID);
     }
 
     if (textureLayerID)
     {
         GLuint locColorTextureLayer = 1;
-        GL_CHECK(locColorTextureLayer = glGetUniformLocation(shaderProgram[shaderIndex], "colorTextureLayer"));
+        locColorTextureLayer = glGetUniformLocation(shaderProgram[shaderIndex], "colorTextureLayer");
         glUniform1i(locColorTextureLayer, 1);
 
-        GL_CHECK(glActiveTexture(GL_TEXTURE1));
-        GL_CHECK(glBindTexture(GL_TEXTURE_2D, textureLayerID));
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, textureLayerID);
     }
 
     if (textureCubeMapID)
     {
-        GL_CHECK(glBindTexture(GL_TEXTURE_CUBE_MAP, textureCubeMapID));
+        glBindTexture(GL_TEXTURE_CUBE_MAP, textureCubeMapID);
     }
 
-    GL_CHECK(glDrawElements(GL_TRIANGLES, numFaces * 3, GL_UNSIGNED_INT, 0));
+    glDrawElements(GL_TRIANGLES, numFaces * 3, GL_UNSIGNED_INT, 0);
 }
 
 void Model::readOFFFile(QString const &fileName)
@@ -388,36 +388,36 @@ void Model::loadTexture(const QImage &image)
 {
     if (textureID)
     {
-        GL_CHECK(glDeleteTextures(1, &textureID));
+        glDeleteTextures(1, &textureID);
     }
 
-    GL_CHECK(glGenTextures(1, &textureID));
-    GL_CHECK(glBindTexture(GL_TEXTURE_2D, textureID));
-    GL_CHECK(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width(), image.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.bits()));
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width(), image.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.bits());
 
-    GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
-    GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
-    GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-    GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR));
-    GL_CHECK(glGenerateMipmap(GL_TEXTURE_2D));
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glGenerateMipmap(GL_TEXTURE_2D);
 }
 
 void Model::loadTextureLayer(const QImage &image)
 {   
     if (textureLayerID)
     {
-        GL_CHECK(glDeleteTextures(1, &textureLayerID));
+        glDeleteTextures(1, &textureLayerID);
     }
 
-    GL_CHECK(glGenTextures(1, &textureLayerID));
-    GL_CHECK(glBindTexture(GL_TEXTURE_2D, textureLayerID));
-    GL_CHECK(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width(), image.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.bits()));
+    glGenTextures(1, &textureLayerID);
+    glBindTexture(GL_TEXTURE_2D, textureLayerID);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width(), image.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.bits());
 
-    GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
-    GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
-    GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-    GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR));
-    GL_CHECK(glGenerateMipmap(GL_TEXTURE_2D));
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glGenerateMipmap(GL_TEXTURE_2D);
 }
 
 void Model::createTangents()
@@ -480,42 +480,3 @@ void Model::createTangents()
         tangents[i].setW((hand < 0.0) ? -1.0 : 1.0);
     }
 }
-
-void Model::loadCubeMapTexture(QString folderName)
-{
-    QImage negx = QImage(QString(folderName).append("/negx.jpg")).convertToFormat(QImage::Format_RGBA8888 );
-    QImage negy = QImage(QString(folderName).append("/negy.jpg")).convertToFormat(QImage::Format_RGBA8888 );
-    QImage negz = QImage(QString(folderName).append("/negz.jpg")).convertToFormat(QImage::Format_RGBA8888 );
-    QImage posx = QImage(QString(folderName).append("/posx.jpg")).convertToFormat(QImage::Format_RGBA8888 );
-    QImage posy = QImage(QString(folderName).append("/posy.jpg")).convertToFormat(QImage::Format_RGBA8888 );
-    QImage posz = QImage(QString(folderName).append("/posz.jpg")).convertToFormat(QImage::Format_RGBA8888 );
-
-    negx = negx.convertToFormat(QImage::Format_RGBA8888);
-    negy = negy.convertToFormat(QImage::Format_RGBA8888);
-    negz = negz.convertToFormat(QImage::Format_RGBA8888);
-    posx = posx.convertToFormat(QImage::Format_RGBA8888);
-    posy = posy.convertToFormat(QImage::Format_RGBA8888);
-    posz = posz.convertToFormat(QImage::Format_RGBA8888);
-
-    if (textureCubeMapID)
-    {
-        GL_CHECK(glDeleteTextures(1, &textureCubeMapID));
-    }
-
-    GL_CHECK(glGenTextures(1, &textureCubeMapID));
-    GL_CHECK(glBindTexture(GL_TEXTURE_CUBE_MAP, textureCubeMapID));
-
-    GL_CHECK(glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGBA, negx.width(), negx.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, negx.bits()));
-    GL_CHECK(glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGBA, negy.width(), negy.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, negy.bits()));
-    GL_CHECK(glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGBA, negz.width(), negz.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, negz.bits()));
-    GL_CHECK(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGBA, posx.width(), posx.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, posx.bits()));
-    GL_CHECK(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGBA, posy.width(), posy.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, posy.bits()));
-    GL_CHECK(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGBA, posz.width(), posz.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, posz.bits()));
-
-    GL_CHECK(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
-    GL_CHECK(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
-    GL_CHECK(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE));
-    GL_CHECK(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-    GL_CHECK(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-}
-
