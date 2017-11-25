@@ -16,6 +16,7 @@ class OpenGLWidget : public QOpenGLWidget, protected QOpenGLExtraFunctions
 public:
     OpenGLWidget(QWidget *parent = 0);
 
+    //Mouse Events
     void mouseMoveEvent(QMouseEvent *event);
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
@@ -36,8 +37,6 @@ protected:
     std::shared_ptr<Model> model;
     Light light;
     Camera camera;
-
-    void updateScene(int);
 };
 
 #endif // OPENGLWIDGET_H

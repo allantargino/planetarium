@@ -234,9 +234,11 @@ void Model::createShaders ()
 void Model::drawModel()
 {
     modelMatrix.setToIdentity();
+    modelMatrix.translate(position);
+    modelMatrix.rotate(angle, 0.0, 0.0, 1.0);
     modelMatrix.translate(0, 0, zoom);
     modelMatrix.rotate(trackBall.getRotation());
-    modelMatrix.scale(invDiag, invDiag, invDiag);
+    modelMatrix.scale(invDiag * scale, invDiag * scale, invDiag*scale);
     modelMatrix.translate(-midPoint);
 
     GLuint locModel = 0;

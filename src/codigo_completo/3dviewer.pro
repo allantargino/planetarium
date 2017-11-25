@@ -28,7 +28,9 @@ HEADERS  += mainwindow.h \
     material.h \
     camera.h \
     trackball.h \
-    model.h
+    model.h \
+    modelfactory.h \
+    astronomicalobject.h
 
 FORMS    += mainwindow.ui
 

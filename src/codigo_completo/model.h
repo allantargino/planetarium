@@ -62,16 +62,19 @@ public:
     double zoom = 0;
 
     Material material;
+    TrackBall trackBall;
 
     int shaderIndex;
     int numShaders;
 
     std::vector<GLuint> shaderProgram;
 
-    TrackBall trackBall;
-
     void readOFFFile(const QString &fileName);
     void loadTexture(const QImage &image);
+
+    QVector3D position = QVector3D(0.5, 0.5, 0.0);
+    float scale = .5;
+    float angle = 0.0;
 };
 
 #endif // MODEL_H
