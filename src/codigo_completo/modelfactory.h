@@ -5,15 +5,17 @@
 
 class ModelFactory
 {
-public :
+public:
     ModelFactory(QOpenGLWidget *_glWidget);
     ~ModelFactory();
 
     std::shared_ptr<AstronomicalObject> GetSun();
+    std::shared_ptr<AstronomicalObject> GetEarth(std::shared_ptr<AstronomicalObject> sun);
 
 protected:
      QOpenGLWidget* glWidget;
 
+     std::shared_ptr<AstronomicalObject> GetModel(const QString offModelFileName, const QString textureFileName, int shaderIndex, const QVector3D position, float scale, float angle, float orbitSpeed);
      QImage GetTexture(const QString textureFileName);
 };
 

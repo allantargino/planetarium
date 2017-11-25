@@ -22,6 +22,8 @@ void OpenGLWidget::initializeGL()
 
     connect(&timer, SIGNAL(timeout()), this, SLOT(animate()));
     timer.start(0);
+
+    time.start();
 }
 
 void OpenGLWidget::paintGL()
@@ -55,7 +57,10 @@ void OpenGLWidget::paintGL()
     glUniform4fv(locSpecularProduct, 1, &(specularProduct[0]));
     glUniform1f(locShininess, objects[0]->material.shininess);
 
-    objects[0]->drawModel();
+    for (int i = 0; i < objects.size(); ++i) {
+        objects[i]->drawModel();
+    }
+
 }
 
 void OpenGLWidget::resizeGL(int width, int height)
@@ -71,6 +76,11 @@ void OpenGLWidget::resizeGL(int width, int height)
 
 void OpenGLWidget::animate()
 {
+    float elapsedTime = time.restart() / 1000.0f;
+
+    for (int i = 0; i < objects.size(); ++i)
+        objects[i]->Orbit(elapsedTime);
+
     update();
 }
 
@@ -111,7 +121,10 @@ void OpenGLWidget::keyPressEvent(QKeyEvent *event)
 
 void OpenGLWidget::start(){
     auto sun = factory->GetSun();
+    auto earth = factory->GetEarth(sun);
+
     objects.push_back(sun);
+    objects.push_back(earth);
 
     update();
 }

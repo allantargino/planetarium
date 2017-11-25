@@ -25,7 +25,9 @@ public:
     void keyPressEvent(QKeyEvent *event);
     void wheelEvent(QWheelEvent *event);
 
+    //Animation
     QTimer timer;
+    QTime time;
 
 public slots:
     void animate();

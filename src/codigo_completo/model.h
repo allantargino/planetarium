@@ -72,8 +72,8 @@ public:
     void readOFFFile(const QString &fileName);
     void loadTexture(const QImage &image);
 
-    QVector3D position = QVector3D(0.5, 0.5, 0.0);
-    float scale = .5;
+    QVector3D position = QVector3D(0.0, 0.0, 0.0);
+    float scale = 1.0;
     float angle = 0.0;
 };
 
