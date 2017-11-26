@@ -17,14 +17,13 @@ std::shared_ptr<AstronomicalObject> ModelFactory::GetSun(){
     QString textureFileName = ".\\textures\\sun.jpg";
     //Shader
     int shaderIndex = 5;
-    //Position
-    QVector3D position = QVector3D(0.0, 0.0, 0.0);
-    float scale = 1.5;
-    float angle = 0.0;
+    //Physical Info
+    float radius = 500.0f;
+    float distanceSun = 0.0f;
     //Orbit
     float orbitSpeed = 0.0;
 
-    return GetModel(offModelFileName, textureFileName, shaderIndex, position, scale, angle, orbitSpeed);
+    return GetModel(offModelFileName, textureFileName, shaderIndex, radius, distanceSun, orbitSpeed);
 }
 
 std::shared_ptr<AstronomicalObject> ModelFactory::GetEarth(std::shared_ptr<AstronomicalObject> sun){
@@ -34,17 +33,16 @@ std::shared_ptr<AstronomicalObject> ModelFactory::GetEarth(std::shared_ptr<Astro
     QString textureFileName = ".\\textures\\earth.jpg";
     //Shader
     int shaderIndex = 5;
-    //Position
-    QVector3D position = QVector3D(1.0, 0.0, 0.0);
-    float scale = 0.5;
-    float angle = 0.0;
+    //Physical Info
+    float radius = 100.0f;
+    float distanceSun = 700.0f;
     //Orbit
     float orbitSpeed = 0.1;
     //Translation
 
-    auto earth = GetModel(offModelFileName, textureFileName, shaderIndex, position, scale, angle, orbitSpeed);
+    auto earth = GetModel(offModelFileName, textureFileName, shaderIndex, radius, distanceSun, orbitSpeed);
     earth->orbitObject = sun.get();
-    earth->orbitDistance = 1.0;
+    //earth->orbitDistance = 1.0;
 
     earth->translationSpeed = 10;
 
@@ -58,26 +56,33 @@ std::shared_ptr<AstronomicalObject> ModelFactory::GetMoon(std::shared_ptr<Astron
     QString textureFileName = ".\\textures\\moon.jpg";
     //Shader
     int shaderIndex = 5;
-    //Position
-    QVector3D position = QVector3D(1.2, 0.0, 0.0);
-    float scale = 0.1;
-    float angle = 0.0;
+    //Physical Info
+    float radius = 50.0f;
+    float distanceEarth = 125.0f;
     //Orbit
     float orbitSpeed = 0.5;
 
-    auto moon = GetModel(offModelFileName, textureFileName, shaderIndex, position, scale, angle, orbitSpeed);
+    auto moon = GetModel(offModelFileName, textureFileName, shaderIndex, radius, distanceEarth, orbitSpeed);
     moon->orbitObject = earth.get();
-    moon->orbitDistance = 0.2;
+    //moon->orbitDistance = 0.2;
 
     return moon;
 }
 
-std::shared_ptr<AstronomicalObject> ModelFactory::GetModel(const QString offModelFileName, const QString textureFileName, int shaderIndex, const QVector3D position, float scale, float angle, float orbitSpeed){
+std::shared_ptr<AstronomicalObject> ModelFactory::GetModel(const QString offModelFileName, const QString textureFileName, int shaderIndex, float radius, float distanceOrbitObject, float orbitSpeed){
+
+    float maxScale = 1000;
+    float radiusNormalized = radius/maxScale;
+    float distanceOrbitObjectNormalized = distanceOrbitObject/maxScale;
+
     auto model = std::make_shared<AstronomicalObject>(glWidget);
 
-    model->position = position;
-    model->scale = scale;
-    model->angle = angle;
+    model->scale = radiusNormalized;
+    model->position = QVector3D(distanceOrbitObjectNormalized, 0.0, 0.0);
+    model->orbitDistance = distanceOrbitObjectNormalized;
+
+    //TODO: Random?
+    model->angle = 0.0f;
 
     model->shaderProgram = shaders->getShader(shaderIndex);
     model->readOFFFile(offModelFileName);

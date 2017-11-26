@@ -18,7 +18,7 @@ protected:
      QOpenGLWidget* glWidget;
      ShaderManager* shaders;
 
-     std::shared_ptr<AstronomicalObject> GetModel(const QString offModelFileName, const QString textureFileName, int shaderIndex, const QVector3D position, float scale, float angle, float orbitSpeed);
+     std::shared_ptr<AstronomicalObject> GetModel(const QString offModelFileName, const QString textureFileName, int shaderIndex, float radius, float distanceOrbitObject, float orbitSpeed);
      QImage GetTexture(const QString textureFileName);
 };
 

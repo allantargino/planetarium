@@ -55,7 +55,6 @@ void OpenGLWidget::paintGL()
     for (int i = 0; i < objects.size(); ++i) {
         objects[i]->drawModel();
     }
-
 }
 
 void OpenGLWidget::resizeGL(int width, int height)

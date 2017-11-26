@@ -46,6 +46,7 @@ protected:
     void initializeGL();
     void resizeGL(int width, int height);
     void paintGL();
+
 };
 
 #endif // OPENGLWIDGET_H
