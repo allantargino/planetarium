@@ -9,6 +9,7 @@ INPUT(
 ./debug\model.o
 ./debug\modelfactory.o
 ./debug\astronomicalobject.o
+./debug\shadermanager.o
 ./debug\qrc_resources.o
 ./debug\moc_mainwindow.o
 ./debug\moc_openglwidget.o

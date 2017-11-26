@@ -2,11 +2,12 @@
 #define MODELFACTORY_H
 
 #include "astronomicalobject.h"
+#include "shadermanager.h"
 
 class ModelFactory
 {
 public:
-    ModelFactory(QOpenGLWidget *_glWidget);
+    ModelFactory(QOpenGLWidget *_glWidget, ShaderManager* _shaders);
     ~ModelFactory();
 
     std::shared_ptr<AstronomicalObject> GetSun();
@@ -15,6 +16,7 @@ public:
 
 protected:
      QOpenGLWidget* glWidget;
+     ShaderManager* shaders;
 
      std::shared_ptr<AstronomicalObject> GetModel(const QString offModelFileName, const QString textureFileName, int shaderIndex, const QVector3D position, float scale, float angle, float orbitSpeed);
      QImage GetTexture(const QString textureFileName);

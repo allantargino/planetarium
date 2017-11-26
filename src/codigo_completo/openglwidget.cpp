@@ -2,7 +2,8 @@
 
 OpenGLWidget::OpenGLWidget(QWidget * parent) : QOpenGLWidget(parent)
 {
-    factory = std::make_unique<ModelFactory>(this);
+    shaders = std::make_unique<ShaderManager>(this);
+    factory = std::make_unique<ModelFactory>(this, shaders.get());
 }
 
 void OpenGLWidget::initializeGL()
@@ -27,7 +28,7 @@ void OpenGLWidget::paintGL()
     if (objects.size()==0)
         return;
 
-    int shaderProgramID = objects[0]->shaderProgram[objects[0]->shaderIndex];
+    int shaderProgramID = shaders->getShader(5);
 
     QVector4D ambientProduct = light.ambient * objects[0]->material.ambient;
     QVector4D diffuseProduct = light.diffuse * objects[0]->material.diffuse;
@@ -122,6 +123,9 @@ void OpenGLWidget::keyPressEvent(QKeyEvent *event)
 }
 
 void OpenGLWidget::start(){
+    shaders->initializeGL();
+    shaders->createShaders();
+
     auto sun = factory->GetSun();
     auto earth = factory->GetEarth(sun);
     auto moon = factory->GetMoon(earth);

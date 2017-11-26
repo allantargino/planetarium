@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     trackball.cpp \
     model.cpp \
     modelfactory.cpp \
-    astronomicalobject.cpp
+    astronomicalobject.cpp \
+    shadermanager.cpp
 
 HEADERS  += mainwindow.h \
     openglwidget.h \
@@ -32,7 +33,8 @@ HEADERS  += mainwindow.h \
     trackball.h \
     model.h \
     modelfactory.h \
-    astronomicalobject.h
+    astronomicalobject.h \
+    shadermanager.h
 
 FORMS    += mainwindow.ui
 

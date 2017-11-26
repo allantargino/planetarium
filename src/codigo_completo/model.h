@@ -47,10 +47,7 @@ public:
     GLuint textureID = 0;
 
     void createVBOs();
-    void createShaders();
-
     void destroyVBOs();
-    void destroyShaders();
 
     void drawModel();
 
@@ -62,10 +59,7 @@ public:
     Material material;
     TrackBall trackBall;
 
-    int shaderIndex;
-    int numShaders;
-
-    std::vector<GLuint> shaderProgram;
+    GLuint shaderProgram = 0;
 
     void readOFFFile(const QString &fileName);
     void loadTexture(const QImage &image);

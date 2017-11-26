@@ -10,6 +10,7 @@
 #include "camera.h"
 #include "astronomicalobject.h"
 #include "modelfactory.h"
+#include "shadermanager.h"
 
 class OpenGLWidget : public QOpenGLWidget, protected QOpenGLExtraFunctions
 {
@@ -35,6 +36,7 @@ public slots:
 
 protected:
     std::unique_ptr<ModelFactory> factory;
+    std::unique_ptr<ShaderManager> shaders;
 
     std::vector<std::shared_ptr<AstronomicalObject>> objects;
 

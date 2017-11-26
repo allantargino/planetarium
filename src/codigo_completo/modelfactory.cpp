@@ -1,8 +1,9 @@
 #include "modelfactory.h"
 
-ModelFactory::ModelFactory(QOpenGLWidget* _glWidget)
+ModelFactory::ModelFactory(QOpenGLWidget* _glWidget, ShaderManager* _shaders)
 {
     glWidget = _glWidget;
+    shaders = _shaders;
 }
 
 ModelFactory::~ModelFactory()
@@ -78,7 +79,7 @@ std::shared_ptr<AstronomicalObject> ModelFactory::GetModel(const QString offMode
     model->scale = scale;
     model->angle = angle;
 
-    model->shaderIndex = shaderIndex;
+    model->shaderProgram = shaders->getShader(shaderIndex);
     model->readOFFFile(offModelFileName);
 
     model->trackBall.resizeViewport(glWidget->width(), glWidget->height());
