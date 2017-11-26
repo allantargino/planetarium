@@ -16,27 +16,31 @@ void ShaderManager::initializeGL(){
 
 void ShaderManager::createShaders ()
 {
-    numShaders = 9;
+    numShaders = 1;
 
-    QString vertexShaderFile[]  = {":/shaders/shaders/vshader1.glsl",
-                                   ":/shaders/shaders/vflat.glsl",
-                                   ":/shaders/shaders/vgouraud.glsl",
-                                   ":/shaders/shaders/vphong.glsl",
-                                   ":/shaders/shaders/vnormal.glsl",
-                                   ":/shaders/shaders/vtexture.glsl",
-                                   ":/shaders/shaders/vtex2.glsl",
-                                   ":/shaders/shaders/vnormalmap.glsl",
-                                   ":/shaders/shaders/vcubemap.glsl"};
+    QString vertexShaderFile[]  = {":/shaders/shaders/vtexture.glsl"};
 
-    QString fragmentShaderFile[] = {":/shaders/shaders/fshader1.glsl",
-                                    ":/shaders/shaders/fflat.glsl",
-                                    ":/shaders/shaders/fgouraud.glsl",
-                                    ":/shaders/shaders/fphong.glsl",
-                                    ":/shaders/shaders/fnormal.glsl",
-                                    ":/shaders/shaders/ftexture.glsl",
-                                    ":/shaders/shaders/ftex2.glsl",
-                                    ":/shaders/shaders/fnormalmap.glsl",
-                                    ":/shaders/shaders/fcubemap.glsl"};
+//    QString vertexShaderFile[]  = {":/shaders/shaders/vshader1.glsl",
+//                                   ":/shaders/shaders/vflat.glsl",
+//                                   ":/shaders/shaders/vgouraud.glsl",
+//                                   ":/shaders/shaders/vphong.glsl",
+//                                   ":/shaders/shaders/vnormal.glsl",
+//                                   ":/shaders/shaders/vtexture.glsl",
+//                                   ":/shaders/shaders/vtex2.glsl",
+//                                   ":/shaders/shaders/vnormalmap.glsl",
+//                                   ":/shaders/shaders/vcubemap.glsl"};
+
+    QString fragmentShaderFile[] = {":/shaders/shaders/ftexture.glsl"};
+
+//    QString fragmentShaderFile[] = {":/shaders/shaders/fshader1.glsl",
+//                                    ":/shaders/shaders/fflat.glsl",
+//                                    ":/shaders/shaders/fgouraud.glsl",
+//                                    ":/shaders/shaders/fphong.glsl",
+//                                    ":/shaders/shaders/fnormal.glsl",
+//                                    ":/shaders/shaders/ftexture.glsl",
+//                                    ":/shaders/shaders/ftex2.glsl",
+//                                    ":/shaders/shaders/fnormalmap.glsl",
+//                                    ":/shaders/shaders/fcubemap.glsl"};
 
     destroyShaders();
 
@@ -46,17 +50,21 @@ void ShaderManager::createShaders ()
     {
         QFile vs(vertexShaderFile[i]);
         QFile fs(fragmentShaderFile[i]);
+        QFile gs(":/shaders/shaders/geometry.glsl");
 
         vs.open(QFile::ReadOnly | QFile::Text);
         fs.open(QFile::ReadOnly | QFile::Text);
+        gs.open(QFile::ReadOnly | QFile::Text);
 
-        QTextStream streamVs(&vs), streamFs(&fs);
+        QTextStream streamVs(&vs), streamFs(&fs), streamGs(&gs);
 
         QString qtStringVs = streamVs.readAll();
         QString qtStringFs = streamFs.readAll();
+        QString qtStringGs = streamGs.readAll();
 
         std::string stdStringVs = qtStringVs.toStdString();
         std::string stdStringFs = qtStringFs.toStdString();
+        std::string stdStringGs = qtStringGs.toStdString();
 
         // Create an empty vertex shader handle
         GLuint vertexShader = 0;
@@ -84,6 +92,32 @@ void ShaderManager::createShaders ()
             glDeleteShader(vertexShader);
             return;
         }
+
+        // Create an empty geometry shader handle
+        GLuint geometryShader = 0;
+        geometryShader = glCreateShader(GL_GEOMETRY_SHADER);
+        // Send the geometry shader source code to GL
+        source = stdStringGs.c_str();
+        glShaderSource(geometryShader, 1, &source, 0);
+
+        // Compile the fragment shader
+        glCompileShader(geometryShader);
+
+        glGetShaderiv(geometryShader, GL_COMPILE_STATUS, &isCompiled);
+        if (isCompiled == GL_FALSE)
+        {
+            GLint maxLength = 0;
+            glGetShaderiv(geometryShader, GL_INFO_LOG_LENGTH, &maxLength);
+
+            std::vector<GLchar> infoLog(maxLength);
+            glGetShaderInfoLog(geometryShader, maxLength, &maxLength, &infoLog[0]);
+            qDebug("%s", &infoLog[0]);
+
+            glDeleteShader(geometryShader);
+            glDeleteShader(vertexShader);
+            return;
+        }
+
 
         // Create an empty fragment shader handle
         GLuint fragmentShader = 0;
@@ -121,6 +155,7 @@ void ShaderManager::createShaders ()
 
         // Attach our shaders to our program
         glAttachShader(shaderProgramID, vertexShader);
+        glAttachShader(shaderProgramID, geometryShader);
         glAttachShader(shaderProgramID, fragmentShader);
 
         // Link our program
@@ -146,12 +181,15 @@ void ShaderManager::createShaders ()
         }
 
         glDetachShader(shaderProgramID, vertexShader);
+        glDetachShader(shaderProgramID, geometryShader);
         glDetachShader(shaderProgramID, fragmentShader);
 
         glDeleteShader(vertexShader);
+        glDeleteShader(geometryShader);
         glDeleteShader(fragmentShader);
 
         vs.close();
+        gs.close();
         fs.close();
     }
 }

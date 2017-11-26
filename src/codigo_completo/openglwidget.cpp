@@ -28,7 +28,7 @@ void OpenGLWidget::paintGL()
     if (objects.size()==0)
         return;
 
-    int shaderProgramID = shaders->getShader(5);
+    int shaderProgramID = shaders->getShader(0);
 
     QVector4D ambientProduct = light.ambient * objects[0]->material.ambient;
     QVector4D diffuseProduct = light.diffuse * objects[0]->material.diffuse;

@@ -16,7 +16,7 @@ std::shared_ptr<AstronomicalObject> ModelFactory::GetSun(){
     //Texture
     QString textureFileName = ".\\textures\\sun.jpg";
     //Shader
-    int shaderIndex = 5;
+    int shaderIndex = 0;
     //Physical Info
     float radius = 500.0f;
     float distanceSun = 0.0f;
@@ -32,7 +32,7 @@ std::shared_ptr<AstronomicalObject> ModelFactory::GetEarth(std::shared_ptr<Astro
     //Texture
     QString textureFileName = ".\\textures\\earth.jpg";
     //Shader
-    int shaderIndex = 5;
+    int shaderIndex = 0;
     //Physical Info
     float radius = 100.0f;
     float distanceSun = 700.0f;
@@ -55,7 +55,7 @@ std::shared_ptr<AstronomicalObject> ModelFactory::GetMoon(std::shared_ptr<Astron
     //Texture
     QString textureFileName = ".\\textures\\moon.jpg";
     //Shader
-    int shaderIndex = 5;
+    int shaderIndex = 0;
     //Physical Info
     float radius = 50.0f;
     float distanceEarth = 125.0f;

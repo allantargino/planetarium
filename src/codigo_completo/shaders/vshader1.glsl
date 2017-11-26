@@ -13,11 +13,11 @@ uniform vec4 specularProduct;
 uniform float shininess;
 uniform vec4 lightPosition;
 
-out vec4 v2fcolor;
+out vec4 v2gcolor;
 
 void main()
 {
     gl_Position = projection * view * model * vPosition;
     float gray = (gl_Position.z + 1) * 0.5;
-    v2fcolor = vec4 (gray, gray, gray, 1);
+    v2gcolor = vec4 (gray, gray, gray, 1);
 }

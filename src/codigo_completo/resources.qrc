@@ -18,6 +18,7 @@
         <file>shaders/vshader1.glsl</file>
         <file>shaders/vtex2.glsl</file>
         <file>shaders/vtexture.glsl</file>
+        <file>shaders/geometry.glsl</file>
     </qresource>
     <qresource prefix="/textures"/>
     <qresource prefix="/images">
