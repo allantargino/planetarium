@@ -5,12 +5,6 @@ OpenGLWidget::OpenGLWidget(QWidget * parent) : QOpenGLWidget(parent)
     factory = std::make_unique<ModelFactory>(this);
 }
 
-void OpenGLWidget::wheelEvent(QWheelEvent *event)
-{
-   //if(!model) return;
-   //this->model->zoom += 0.001 * event->delta();
-}
-
 void OpenGLWidget::initializeGL()
 {
     initializeOpenGLFunctions();
@@ -78,10 +72,18 @@ void OpenGLWidget::animate()
 {
     float elapsedTime = time.restart() / 1000.0f;
 
-    for (int i = 0; i < objects.size(); ++i)
-        objects[i]->Orbit(elapsedTime);
+    for (int i = 0; i < objects.size(); ++i){
+         objects[i]->Rotate(elapsedTime);
+         objects[i]->Translate(elapsedTime);
+    }
 
     update();
+}
+
+void OpenGLWidget::wheelEvent(QWheelEvent *event)
+{
+   //if(!model) return;
+   //this->model->zoom += 0.001 * event->delta();
 }
 
 void OpenGLWidget::mouseMoveEvent(QMouseEvent *event)

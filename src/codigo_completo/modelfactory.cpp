@@ -39,10 +39,13 @@ std::shared_ptr<AstronomicalObject> ModelFactory::GetEarth(std::shared_ptr<Astro
     float angle = 0.0;
     //Orbit
     float orbitSpeed = 0.1;
+    //Translation
 
     auto earth = GetModel(offModelFileName, textureFileName, shaderIndex, position, scale, angle, orbitSpeed);
     earth->orbitObject = sun.get();
     earth->orbitDistance = 1.0;
+
+    earth->translationSpeed = 10;
 
     return earth;
 }

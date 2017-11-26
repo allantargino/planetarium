@@ -233,9 +233,12 @@ void Model::createShaders ()
 
 void Model::drawModel()
 {
+    float fixedAngle = -90.0f;
+
     modelMatrix.setToIdentity();
     modelMatrix.translate(position);
-    modelMatrix.rotate(angle, 0.0, 0.0, 1.0);
+    modelMatrix.rotate(angle, 0.0, 1.0, 0.0);
+    modelMatrix.rotate(fixedAngle, 1.0, 0.0, 0.0);
     modelMatrix.translate(0, 0, zoom);
     modelMatrix.rotate(trackBall.getRotation());
     modelMatrix.scale(invDiag * scale, invDiag * scale, invDiag*scale);
@@ -263,21 +266,6 @@ void Model::drawModel()
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textureID);
-    }
-
-    if (textureLayerID)
-    {
-        GLuint locColorTextureLayer = 1;
-        locColorTextureLayer = glGetUniformLocation(shaderProgram[shaderIndex], "colorTextureLayer");
-        glUniform1i(locColorTextureLayer, 1);
-
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, textureLayerID);
-    }
-
-    if (textureCubeMapID)
-    {
-        glBindTexture(GL_TEXTURE_CUBE_MAP, textureCubeMapID);
     }
 
     glDrawElements(GL_TRIANGLES, numFaces * 3, GL_UNSIGNED_INT, 0);

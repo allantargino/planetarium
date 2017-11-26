@@ -15,7 +15,11 @@ public :
     float orbitAngleTheta = 0;
     AstronomicalObject* orbitObject = nullptr;
 
-    void Orbit(float elapsedTime);
+    //Translation
+    float translationSpeed = 0;
+
+    void Rotate(float elapsedTime);
+    void Translate(float elapsedTime);
 };
 
 #endif // ASTRONOMICALOBJECT_H

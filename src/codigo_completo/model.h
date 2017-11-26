@@ -45,8 +45,6 @@ public:
     GLuint vboTexCoords = 0;
     GLuint vboTangents = 0;
     GLuint textureID = 0;
-    GLuint textureLayerID = 0;
-    GLuint textureCubeMapID = 0;
 
     void createVBOs();
     void createShaders();
