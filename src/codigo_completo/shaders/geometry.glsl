@@ -27,5 +27,13 @@ void main(void)
         gtexCoord = ftexCoord[i];
         EmitVertex();
     }
+
+    vec4 pos = vec4(0.5,0.5,0,1);  //introduce a single vertex at the origin
+    for(float i = 0; i < 6.38 ; i+=0.1)  //generate vertices at positions on the circumference from 0 to 2*pi
+    {
+        gl_Position = vec4(pos.x+0.5*cos(i),pos.y+0.5*sin(i),pos.z,1.0);   //circle parametric equation
+        EmitVertex();
+    }
+
     EndPrimitive();
 }
