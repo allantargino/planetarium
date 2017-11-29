@@ -4,6 +4,8 @@ OpenGLWidget::OpenGLWidget(QWidget * parent) : QOpenGLWidget(parent)
 {
     shaders = std::make_unique<ShaderManager>(this);
     factory = std::make_unique<ModelFactory>(this, shaders.get());
+
+    trajectory = std::make_unique<Trajectory>(this);
 }
 
 void OpenGLWidget::initializeGL()
@@ -55,6 +57,8 @@ void OpenGLWidget::paintGL()
     for (int i = 0; i < objects.size(); ++i) {
         objects[i]->drawModel();
     }
+
+    trajectory->drawModel();
 }
 
 void OpenGLWidget::resizeGL(int width, int height)
@@ -132,6 +136,8 @@ void OpenGLWidget::start(){
     objects.push_back(sun);
     objects.push_back(earth);
     objects.push_back(moon);
+
+    trajectory->startTrajectory();
 
     update();
 }

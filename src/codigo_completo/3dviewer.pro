@@ -13,33 +13,35 @@ TEMPLATE = app
 
 CONFIG += c++14
 
-SOURCES += main.cpp\
+SOURCES += main.cpp \
         mainwindow.cpp \
-    openglwidget.cpp \
-    light.cpp \
-    material.cpp \
-    camera.cpp \
-    trackball.cpp \
-    model.cpp \
-    modelfactory.cpp \
-    astronomicalobject.cpp \
-    shadermanager.cpp
+        openglwidget.cpp \
+        light.cpp \
+        material.cpp \
+        camera.cpp \
+        trackball.cpp \
+        model.cpp \
+        modelfactory.cpp \
+        astronomicalobject.cpp \
+        shadermanager.cpp \
+        trajectory.cpp
 
 HEADERS  += mainwindow.h \
-    openglwidget.h \
-    light.h \
-    material.h \
-    camera.h \
-    trackball.h \
-    model.h \
-    modelfactory.h \
-    astronomicalobject.h \
-    shadermanager.h
+            openglwidget.h \
+            light.h \
+            material.h \
+            camera.h \
+            trackball.h \
+            model.h \
+            modelfactory.h \
+            astronomicalobject.h \
+            shadermanager.h \
+            trajectory.h
 
 FORMS    += mainwindow.ui
 
 DISTFILES +=
 
 RESOURCES += \
-    resources.qrc \
-    resources.qrc
+            resources.qrc \
+            resources.qrc

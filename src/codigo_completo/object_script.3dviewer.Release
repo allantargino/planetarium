@@ -10,6 +10,7 @@ INPUT(
 ./release\modelfactory.o
 ./release\astronomicalobject.o
 ./release\shadermanager.o
+./release\trajectory.o
 ./release\qrc_resources.o
 ./release\moc_mainwindow.o
 ./release\moc_openglwidget.o

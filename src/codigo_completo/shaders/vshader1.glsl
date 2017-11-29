@@ -1,23 +1,15 @@
-#version 410
+# version 400
+layout (location = 0) in vec3 in_Position;
+layout (location = 1) in vec3 in_Color;
+layout (location = 2) in float in_Radius;
 
-layout (location = 0) in vec4 vPosition;
-layout (location = 1) in vec3 vNormal;
+out vec3 vs_color;
+out float vs_radius;
 
-uniform mat4 model;
-uniform mat4 view;
-uniform mat4 projection;
-uniform mat3 normalMatrix;
-uniform vec4 ambientProduct;
-uniform vec4 diffuseProduct;
-uniform vec4 specularProduct;
-uniform float shininess;
-uniform vec4 lightPosition;
-
-out vec4 v2gcolor;
-
-void main()
+void main(void)
 {
-    gl_Position = projection * view * model * vPosition;
-    float gray = (gl_Position.z + 1) * 0.5;
-    v2gcolor = vec4 (gray, gray, gray, 1);
+    //gl_PointSize = 20.0;
+    gl_Position = vec4(in_Position.xyz, 1.0);
+    vs_color = in_Color;
+    vs_radius = in_Radius;
 }

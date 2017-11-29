@@ -11,6 +11,7 @@
 #include "astronomicalobject.h"
 #include "modelfactory.h"
 #include "shadermanager.h"
+#include "trajectory.h"
 
 class OpenGLWidget : public QOpenGLWidget, protected QOpenGLExtraFunctions
 {
@@ -42,6 +43,8 @@ protected:
 
     Light light;
     Camera camera;
+
+    std::unique_ptr<Trajectory> trajectory;
 
     void initializeGL();
     void resizeGL(int width, int height);

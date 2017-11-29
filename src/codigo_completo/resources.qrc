@@ -1,24 +1,11 @@
 <RCC>
     <qresource prefix="/shaders">
-        <file>shaders/fcubemap.glsl</file>
-        <file>shaders/fflat.glsl</file>
-        <file>shaders/fgouraud.glsl</file>
-        <file>shaders/fnormal.glsl</file>
-        <file>shaders/fnormalmap.glsl</file>
-        <file>shaders/fphong.glsl</file>
-        <file>shaders/fshader1.glsl</file>
-        <file>shaders/ftex2.glsl</file>
         <file>shaders/ftexture.glsl</file>
-        <file>shaders/vcubemap.glsl</file>
-        <file>shaders/vflat.glsl</file>
-        <file>shaders/vgouraud.glsl</file>
-        <file>shaders/vnormal.glsl</file>
-        <file>shaders/vnormalmap.glsl</file>
-        <file>shaders/vphong.glsl</file>
-        <file>shaders/vshader1.glsl</file>
-        <file>shaders/vtex2.glsl</file>
         <file>shaders/vtexture.glsl</file>
         <file>shaders/geometry.glsl</file>
+        <file>shaders/fshader1.glsl</file>
+        <file>shaders/geometry_circle.glsl</file>
+        <file>shaders/vshader1.glsl</file>
     </qresource>
     <qresource prefix="/textures">
         <file>textures/earth.jpg</file>
