@@ -58,7 +58,8 @@ void OpenGLWidget::paintGL()
         objects[i]->drawModel();
     }
 
-    trajectory->drawModel();
+    if(trajectory->count>0)
+        trajectory->drawModel();
 }
 
 void OpenGLWidget::resizeGL(int width, int height)
@@ -136,6 +137,12 @@ void OpenGLWidget::start(){
     objects.push_back(sun);
     objects.push_back(earth);
     objects.push_back(moon);
+
+    QVector3D start = QVector3D(0,0,0);
+    trajectory->addTrajectory(start, QVector3D(1,0,0), earth->orbitDistance);
+    //trajectory->addTrajectory(QVector3D(-0.5f, -0.5f, 0.0f), QVector3D(1,0,0), 0.3);
+    //trajectory->addTrajectory(QVector3D(0.5f,  -0.5f, 0.0f), QVector3D(0,1,0), 0.3);
+    //trajectory->addTrajectory(QVector3D(0.0f,   0.5f, 0.0f), QVector3D(0,0,1), 0.3);
 
     trajectory->startTrajectory();
 

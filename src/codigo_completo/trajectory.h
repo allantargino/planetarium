@@ -25,8 +25,15 @@ public :
     void startTrajectory();
     void drawModel();
 
+    void addTrajectory(QVector3D startPoint, QVector3D color, float rad);
+
     GLuint vao = 0;
     GLuint vbo[3];
+
+    int count = 0;
+    std::unique_ptr<QVector3D[]> startPoints;
+    std::unique_ptr<QVector3D[]> colors;
+    std::unique_ptr<float[]> radius;
 
 };
 
