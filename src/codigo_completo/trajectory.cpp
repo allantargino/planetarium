@@ -22,7 +22,7 @@ void Trajectory::startTrajectory(){
 }
 
 void Trajectory::drawModel(){
-    glUseProgram (shaderProgram);
+    //glUseProgram (shaderProgram);
     glBindVertexArray(vao);
 
     glEnable(GL_POINT_SPRITE);

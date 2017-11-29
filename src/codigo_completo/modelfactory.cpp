@@ -37,7 +37,7 @@ std::shared_ptr<AstronomicalObject> ModelFactory::GetEarth(std::shared_ptr<Astro
     float radius = 100.0f;
     float distanceSun = 700.0f;
     //Orbit
-    float orbitSpeed = 0.1;
+    float orbitSpeed = 0.8;
     //Translation
 
     auto earth = GetModel(offModelFileName, textureFileName, shaderIndex, radius, distanceSun, orbitSpeed);
@@ -60,7 +60,7 @@ std::shared_ptr<AstronomicalObject> ModelFactory::GetMoon(std::shared_ptr<Astron
     float radius = 50.0f;
     float distanceEarth = 125.0f;
     //Orbit
-    float orbitSpeed = 0.5;
+    float orbitSpeed = 4.0;
 
     auto moon = GetModel(offModelFileName, textureFileName, shaderIndex, radius, distanceEarth, orbitSpeed);
     moon->orbitObject = earth.get();

@@ -58,10 +58,19 @@ void OpenGLWidget::paintGL()
         objects[i]->drawModel();
     }
 
-    if(trajectory->count>0)
-        trajectory->drawModel();
-}
+    if(trajectory->count>0){
+        GLuint locProjection2 = glGetUniformLocation(trajectory->shaderProgram, "projection");
+        GLuint locView2 = glGetUniformLocation(trajectory->shaderProgram, "view");
 
+        glUseProgram(trajectory->shaderProgram);
+
+        glUniformMatrix4fv(locProjection2, 1, GL_FALSE, camera.projectionMatrix.data());
+        glUniformMatrix4fv(locView2, 1, GL_FALSE, camera.viewMatrix.data());
+
+        trajectory->drawModel();
+
+    }
+}
 void OpenGLWidget::resizeGL(int width, int height)
 {
     glViewport(0, 0, width, height);
@@ -139,7 +148,7 @@ void OpenGLWidget::start(){
     objects.push_back(moon);
 
     QVector3D start = QVector3D(0,0,0);
-    trajectory->addTrajectory(start, QVector3D(1,0,0), earth->orbitDistance);
+    trajectory->addTrajectory(start, QVector3D(1,0,0), earth->orbitDistance * 2);
     //trajectory->addTrajectory(QVector3D(-0.5f, -0.5f, 0.0f), QVector3D(1,0,0), 0.3);
     //trajectory->addTrajectory(QVector3D(0.5f,  -0.5f, 0.0f), QVector3D(0,1,0), 0.3);
     //trajectory->addTrajectory(QVector3D(0.0f,   0.5f, 0.0f), QVector3D(0,0,1), 0.3);

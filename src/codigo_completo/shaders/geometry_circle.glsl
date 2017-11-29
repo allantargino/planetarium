@@ -3,6 +3,10 @@
 layout (points) in;
 layout (line_strip, max_vertices = 101) out;
 
+//uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
 in vec3 vs_color[];
 in float vs_radius[];
 
@@ -27,7 +31,9 @@ void main()
 
         for(float j = 0; j <= complete_circle; j+=step)
         {
-            gl_Position = gl_in[i].gl_Position + vec4(gl_in[i].gl_Position.x+ radius*cos(j), gl_in[i].gl_Position.y + radius*sin(j), gl_in[i].gl_Position.z, 1.0);
+            vec4 pos = gl_in[i].gl_Position + vec4(gl_in[i].gl_Position.x+ radius*cos(j), gl_in[i].gl_Position.z, gl_in[i].gl_Position.y + radius*sin(j), 1.0);
+            gl_Position = projection * view * pos;
+            //gl_Position  = gl_in[i].gl_Position + vec4(gl_in[i].gl_Position.x+ radius*cos(j), gl_in[i].gl_Position.z, gl_in[i].gl_Position.y + radius*sin(j), 1.0);
             EmitVertex();
         }
 
