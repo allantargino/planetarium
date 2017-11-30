@@ -5,7 +5,6 @@ INPUT(
 ./release\light.o
 ./release\material.o
 ./release\camera.o
-./release\trackball.o
 ./release\model.o
 ./release\modelfactory.o
 ./release\astronomicalobject.o

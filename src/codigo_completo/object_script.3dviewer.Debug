@@ -5,7 +5,6 @@ INPUT(
 ./debug\light.o
 ./debug\material.o
 ./debug\camera.o
-./debug\trackball.o
 ./debug\model.o
 ./debug\modelfactory.o
 ./debug\astronomicalobject.o

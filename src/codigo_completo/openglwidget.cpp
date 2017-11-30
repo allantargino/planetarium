@@ -54,7 +54,8 @@ void OpenGLWidget::paintGL()
     glUniform4fv(locSpecularProduct, 1, &(specularProduct[0]));
     glUniform1f(locShininess, objects[0]->material.shininess);
 
-    for (int i = 0; i < objects.size(); ++i) {
+    int size = objects.size();
+    for (int i = 0; i < size; ++i) {
         objects[i]->drawModel();
     }
 
@@ -76,8 +77,6 @@ void OpenGLWidget::resizeGL(int width, int height)
     glViewport(0, 0, width, height);
     camera.resizeViewport(width, height);
 
-    if (objects.size()>0)
-        objects[0]->trackBall.resizeViewport(width, height);
     update();
 }
 
@@ -86,44 +85,13 @@ void OpenGLWidget::animate()
 {
     float elapsedTime = time.restart() / 1000.0f;
 
-    for (int i = 0; i < objects.size(); ++i){
+    int size = objects.size();
+    for (int i = 0; i < size; ++i){
          objects[i]->Rotate(elapsedTime);
          objects[i]->Translate(elapsedTime);
     }
 
     update();
-}
-
-void OpenGLWidget::wheelEvent(QWheelEvent *event)
-{
-   //if(!model) return;
-   //this->model->zoom += 0.001 * event->delta();
-}
-
-void OpenGLWidget::mouseMoveEvent(QMouseEvent *event)
-{
-    if (!objects[0])
-        return;
-
-    objects[0]->trackBall.mouseMove(event->localPos());
-}
-
-void OpenGLWidget::mousePressEvent(QMouseEvent *event)
-{
-    if (!objects[0])
-        return;
-
-    if (event->button() & Qt::LeftButton)
-        objects[0]->trackBall.mousePress(event->localPos());
-}
-
-void OpenGLWidget::mouseReleaseEvent(QMouseEvent *event)
-{
-    if (!objects[0])
-        return;
-
-    if (event->button() & Qt::LeftButton)
-        objects[0]->trackBall.mouseRelease(event->localPos());
 }
 
 // Strong focus is required

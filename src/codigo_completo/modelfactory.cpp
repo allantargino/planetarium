@@ -250,9 +250,6 @@ std::shared_ptr<AstronomicalObject> ModelFactory::GetModel(const QString offMode
     model->shaderProgram = shaders->getShader(shaderIndex);
     model->readOFFFile(offModelFileName);
 
-    //Trackball
-    model->trackBall.resizeViewport(glWidget->width(), glWidget->height());
-
     //Texture
     QImage image = GetTexture(textureFileName);
     model->loadTexture(image);

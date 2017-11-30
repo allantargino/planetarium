@@ -19,7 +19,6 @@ SOURCES += main.cpp \
         light.cpp \
         material.cpp \
         camera.cpp \
-        trackball.cpp \
         model.cpp \
         modelfactory.cpp \
         astronomicalobject.cpp \
@@ -32,7 +31,6 @@ HEADERS  += mainwindow.h \
             light.h \
             material.h \
             camera.h \
-            trackball.h \
             model.h \
             modelfactory.h \
             astronomicalobject.h \

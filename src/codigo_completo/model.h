@@ -13,7 +13,6 @@
 #include <memory>
 
 #include "light.h"
-#include "trackball.h"
 #include "material.h"
 
 class Model : public QOpenGLExtraFunctions
@@ -54,10 +53,8 @@ public:
     QMatrix4x4 modelMatrix;
     QVector3D midPoint;
     double invDiag;
-    double zoom = 0;
 
     Material material;
-    TrackBall trackBall;
 
     GLuint shaderProgram = 0;
 
