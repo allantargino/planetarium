@@ -11,8 +11,17 @@
         <file>textures/earth.jpg</file>
         <file>textures/sun.jpg</file>
         <file>textures/moon.jpg</file>
+        <file>textures/jupiter.jpg</file>
+        <file>textures/mars.jpg</file>
+        <file>textures/mercury.jpg</file>
+        <file>textures/neptune.jpg</file>
+        <file>textures/rings.jpg</file>
+        <file>textures/saturn.jpg</file>
+        <file>textures/uranus.jpg</file>
+        <file>textures/venus.jpg</file>
     </qresource>
     <qresource prefix="/offmodels">
         <file>offmodels/sphere.off</file>
+        <file>offmodels/ring.off</file>
     </qresource>
 </RCC>

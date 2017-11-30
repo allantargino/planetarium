@@ -140,19 +140,38 @@ void OpenGLWidget::start(){
     shaders->createShaders();
 
     auto sun = factory->GetSun();
+    auto mercury = factory->GetMercury(sun);
+    auto venus = factory->GetVenus(sun);
     auto earth = factory->GetEarth(sun);
     auto moon = factory->GetMoon(earth);
+    auto mars = factory->GetMars(sun);
+    auto jupiter = factory->GetJupiter(sun);
+    auto saturn = factory->GetSaturn(sun);
+    auto ring = factory->GetSaturnRing(saturn);
+    auto uranus = factory->GetUranus(sun);
+    auto neptune = factory->GetNeptune(sun);
 
     objects.push_back(sun);
+    objects.push_back(mercury);
+    objects.push_back(venus);
     objects.push_back(earth);
     objects.push_back(moon);
+    objects.push_back(mars);
+    objects.push_back(jupiter);
+    objects.push_back(saturn);
+    objects.push_back(ring);
+    objects.push_back(uranus);
+    objects.push_back(neptune);
 
     QVector3D start = QVector3D(0,0,0);
-    trajectory->addTrajectory(start, QVector3D(1,0,0), earth->orbitDistance * 2);
-    //trajectory->addTrajectory(QVector3D(-0.5f, -0.5f, 0.0f), QVector3D(1,0,0), 0.3);
-    //trajectory->addTrajectory(QVector3D(0.5f,  -0.5f, 0.0f), QVector3D(0,1,0), 0.3);
-    //trajectory->addTrajectory(QVector3D(0.0f,   0.5f, 0.0f), QVector3D(0,0,1), 0.3);
-
+    trajectory->addTrajectory(start, QVector3D(0.0,0.0,1.0), mercury->orbitDistance * 2);
+    trajectory->addTrajectory(start, QVector3D(0.0,1.0,0.0), venus->orbitDistance * 2);
+    trajectory->addTrajectory(start, QVector3D(1.0,0.0,0.0), earth->orbitDistance * 2);
+    trajectory->addTrajectory(start, QVector3D(0.0,0.7,0.3), mars->orbitDistance * 2);
+    trajectory->addTrajectory(start, QVector3D(0.5,1.0,0.5), jupiter->orbitDistance * 2);
+    trajectory->addTrajectory(start, QVector3D(1.0,1.0,0.0), saturn->orbitDistance * 2);
+    trajectory->addTrajectory(start, QVector3D(1.0,0.0,1.0), uranus->orbitDistance * 2);
+    trajectory->addTrajectory(start, QVector3D(0.3,1.0,0.7), neptune->orbitDistance * 2);
     trajectory->startTrajectory();
 
     update();

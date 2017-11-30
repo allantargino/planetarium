@@ -24,7 +24,8 @@ SOURCES += main.cpp \
         modelfactory.cpp \
         astronomicalobject.cpp \
         shadermanager.cpp \
-        trajectory.cpp
+        trajectory.cpp \
+    utils.cpp
 
 HEADERS  += mainwindow.h \
             openglwidget.h \
@@ -36,7 +37,8 @@ HEADERS  += mainwindow.h \
             modelfactory.h \
             astronomicalobject.h \
             shadermanager.h \
-            trajectory.h
+            trajectory.h \
+    utils.h
 
 FORMS    += mainwindow.ui
 

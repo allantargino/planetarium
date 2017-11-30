@@ -11,6 +11,7 @@ INPUT(
 ./release\astronomicalobject.o
 ./release\shadermanager.o
 ./release\trajectory.o
+./release\utils.o
 ./release\qrc_resources.o
 ./release\moc_mainwindow.o
 ./release\moc_openglwidget.o
