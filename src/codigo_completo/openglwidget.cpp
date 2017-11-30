@@ -94,15 +94,36 @@ void OpenGLWidget::animate()
     update();
 }
 
-// Strong focus is required
 void OpenGLWidget::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_Escape)
+    switch (event->key())
     {
-        QApplication::quit();
+    case Qt::Key_Left:
+        camera.MoveCameraLeft();
+        break;
+    case Qt::Key_Right:
+        camera.MoveCameraRight();
+        break;
+    case Qt::Key_Up:
+        camera.MoveCameraUp();
+        break;
+    case Qt::Key_Down:
+        camera.MoveCameraDown();
+        break;
+    case Qt::Key_1:
+        camera.IncreaseDistance();
+        break;
+    case Qt::Key_2:
+        camera.DecreaseDistance();
+        break;
+    case Qt::Key_Escape:
+        qApp->quit();
+        break;
+    default:
+        break;
     }
+    update();
 }
-
 void OpenGLWidget::start(){
     shaders->initializeGL();
     shaders->createShaders();
