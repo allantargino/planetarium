@@ -62,7 +62,7 @@
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>&amp;File</string>
+     <string>&amp;Simulation</string>
     </property>
     <addaction name="actionStart"/>
     <addaction name="separator"/>
@@ -73,7 +73,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionStart">
    <property name="text">
-    <string>&amp;Open...</string>
+    <string>&amp;Start</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
