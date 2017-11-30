@@ -5,7 +5,8 @@ OpenGLWidget::OpenGLWidget(QWidget * parent) : QOpenGLWidget(parent)
     shaders = std::make_unique<ShaderManager>(this);
     factory = std::make_unique<ModelFactory>(this, shaders.get());
 
-    trajectory = std::make_unique<Trajectory>(this);
+    int planets = 9; // 8 planets + 1 sun
+    trajectory = std::make_unique<Trajectory>(this, planets);
 }
 
 void OpenGLWidget::initializeGL()
@@ -27,6 +28,7 @@ void OpenGLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    //Planets
     if (objects.size()==0)
         return;
 
@@ -59,18 +61,24 @@ void OpenGLWidget::paintGL()
         objects[i]->drawModel();
     }
 
-    if(trajectory->count>0){
-        GLuint locProjection2 = glGetUniformLocation(trajectory->shaderProgram, "projection");
-        GLuint locView2 = glGetUniformLocation(trajectory->shaderProgram, "view");
+    //Trajectory
+    if(trajectory->count==0)
+        return;
 
-        glUseProgram(trajectory->shaderProgram);
+    if(!trajectoryEnabled)
+        return;
 
-        glUniformMatrix4fv(locProjection2, 1, GL_FALSE, camera.projectionMatrix.data());
-        glUniformMatrix4fv(locView2, 1, GL_FALSE, camera.viewMatrix.data());
+    shaderProgramID = shaders->getShader(1);
 
-        trajectory->drawModel();
+    locProjection = glGetUniformLocation(shaderProgramID, "projection");
+    locView = glGetUniformLocation(shaderProgramID, "view");
 
-    }
+    glUseProgram(shaderProgramID);
+
+    glUniformMatrix4fv(locProjection, 1, GL_FALSE, camera.projectionMatrix.data());
+    glUniformMatrix4fv(locView, 1, GL_FALSE, camera.viewMatrix.data());
+
+    trajectory->drawModel();
 }
 void OpenGLWidget::resizeGL(int width, int height)
 {
@@ -83,12 +91,14 @@ void OpenGLWidget::resizeGL(int width, int height)
 
 void OpenGLWidget::animate()
 {
-    float elapsedTime = time.restart() / 1000.0f;
+    float elapsedTime = (time.restart() / 1000.0f) * animationSpeed;
 
-    int size = objects.size();
-    for (int i = 0; i < size; ++i){
-         objects[i]->Rotate(elapsedTime);
-         objects[i]->Translate(elapsedTime);
+    if(rotationTranslationEnable){
+        int size = objects.size();
+        for (int i = 0; i < size; ++i){
+             objects[i]->Rotate(elapsedTime);
+             objects[i]->Translate(elapsedTime);
+        }
     }
 
     update();
@@ -115,9 +125,6 @@ void OpenGLWidget::keyPressEvent(QKeyEvent *event)
         break;
     case Qt::Key_2:
         camera.DecreaseDistance();
-        break;
-    case Qt::Key_Escape:
-        qApp->quit();
         break;
     default:
         break;
@@ -164,4 +171,26 @@ void OpenGLWidget::start(){
     trajectory->startTrajectory();
 
     update();
+}
+
+void OpenGLWidget::exit(){
+    qApp->quit();
+}
+
+void OpenGLWidget::toggleTrajectory(){
+    trajectoryEnabled = !trajectoryEnabled;
+}
+
+void OpenGLWidget::toggleRotationTranslation(){
+    rotationTranslationEnable = !rotationTranslationEnable;
+}
+
+void OpenGLWidget::increaseAnimationSpeed(){
+    if(animationSpeed<=4.0)
+        animationSpeed+=0.05;
+}
+
+void OpenGLWidget::decreaseAnimationSpeed(){
+    if(animationSpeed>=0.1)
+        animationSpeed-=0.05;
 }

@@ -16,31 +16,22 @@ void ShaderManager::initializeGL(){
 
 void ShaderManager::createShaders ()
 {
-    numShaders = 1;
+    numShaders = 2;
 
-    QString vertexShaderFile[]  = {":/shaders/shaders/vtexture.glsl"};
+    QString vertexShaderFile[]  = {
+        ":/shaders/shaders/vtexture.glsl",
+        ":/shaders/shaders/vtrajectory.glsl"
+    };
 
-//    QString vertexShaderFile[]  = {":/shaders/shaders/vshader1.glsl",
-//                                   ":/shaders/shaders/vflat.glsl",
-//                                   ":/shaders/shaders/vgouraud.glsl",
-//                                   ":/shaders/shaders/vphong.glsl",
-//                                   ":/shaders/shaders/vnormal.glsl",
-//                                   ":/shaders/shaders/vtexture.glsl",
-//                                   ":/shaders/shaders/vtex2.glsl",
-//                                   ":/shaders/shaders/vnormalmap.glsl",
-//                                   ":/shaders/shaders/vcubemap.glsl"};
+    QString geometryShaderFile[] = {
+        ":/shaders/shaders/gtexture.glsl",
+        ":/shaders/shaders/gtrajectory.glsl"
+    };
 
-    QString fragmentShaderFile[] = {":/shaders/shaders/ftexture.glsl"};
-
-//    QString fragmentShaderFile[] = {":/shaders/shaders/fshader1.glsl",
-//                                    ":/shaders/shaders/fflat.glsl",
-//                                    ":/shaders/shaders/fgouraud.glsl",
-//                                    ":/shaders/shaders/fphong.glsl",
-//                                    ":/shaders/shaders/fnormal.glsl",
-//                                    ":/shaders/shaders/ftexture.glsl",
-//                                    ":/shaders/shaders/ftex2.glsl",
-//                                    ":/shaders/shaders/fnormalmap.glsl",
-//                                    ":/shaders/shaders/fcubemap.glsl"};
+    QString fragmentShaderFile[] = {
+        ":/shaders/shaders/ftexture.glsl",
+        ":/shaders/shaders/ftrajectory.glsl"
+    };
 
     destroyShaders();
 
@@ -49,8 +40,8 @@ void ShaderManager::createShaders ()
     for (int i = 0; i < numShaders; ++i)
     {
         QFile vs(vertexShaderFile[i]);
+        QFile gs(geometryShaderFile[i]);
         QFile fs(fragmentShaderFile[i]);
-        QFile gs(":/shaders/shaders/geometry.glsl");
 
         vs.open(QFile::ReadOnly | QFile::Text);
         fs.open(QFile::ReadOnly | QFile::Text);

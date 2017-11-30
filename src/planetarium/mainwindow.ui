@@ -66,9 +66,21 @@
     </property>
     <addaction name="actionStart"/>
     <addaction name="separator"/>
-    <addaction name="actionE_xit"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuParameters">
+    <property name="title">
+     <string>Parameters</string>
+    </property>
+    <addaction name="actionToggleTrajectory"/>
+    <addaction name="separator"/>
+    <addaction name="actionToggleRotationTranslation"/>
+    <addaction name="separator"/>
+    <addaction name="actionIncrease_Animation_Speed"/>
+    <addaction name="actionDecrease_Animation_Speed"/>
    </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuParameters"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionStart">
@@ -76,7 +88,7 @@
     <string>&amp;Start</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+O</string>
+    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="actionLoad_Texture">
@@ -94,12 +106,49 @@
     <string>Load &amp;Cube Folder...</string>
    </property>
   </action>
-  <action name="actionE_xit">
+  <action name="actionExit">
    <property name="text">
     <string>E&amp;xit</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionToggleTrajectory">
+   <property name="text">
+    <string>Toggle Trajectory</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
+  </action>
+  <action name="actionToggleRotationTranslation">
+   <property name="text">
+    <string>Toggle Rotation and Translation</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionDisable_Translation">
+   <property name="text">
+    <string>Disable Translation</string>
+   </property>
+  </action>
+  <action name="actionIncrease_Animation_Speed">
+   <property name="text">
+    <string>Increase Animation Speed</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+=</string>
+   </property>
+  </action>
+  <action name="actionDecrease_Animation_Speed">
+   <property name="text">
+    <string>Decrease Animation Speed</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+-</string>
    </property>
   </action>
  </widget>
@@ -111,6 +160,11 @@
    <header>openglwidget.h</header>
    <slots>
     <slot>start()</slot>
+    <slot>toggleTrajectory()</slot>
+    <slot>toggleRotationTranslation()</slot>
+    <slot>exit()</slot>
+    <slot>increaseAnimationSpeed()</slot>
+    <slot>decreaseAnimationSpeed()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -129,6 +183,86 @@
     <hint type="destinationlabel">
      <x>299</x>
      <y>269</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionToggleTrajectory</sender>
+   <signal>triggered()</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>toggleTrajectory()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionToggleRotationTranslation</sender>
+   <signal>triggered()</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>toggleRotationTranslation()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>exit()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionIncrease_Animation_Speed</sender>
+   <signal>triggered()</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>increaseAnimationSpeed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionDecrease_Animation_Speed</sender>
+   <signal>triggered()</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>decreaseAnimationSpeed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>266</y>
     </hint>
    </hints>
   </connection>

@@ -29,17 +29,26 @@ public:
 public slots:
     void animate();
     void start();
+    void exit();
+    void toggleTrajectory();
+    void toggleRotationTranslation();
+    void increaseAnimationSpeed();
+    void decreaseAnimationSpeed();
 
 protected:
     std::unique_ptr<ModelFactory> factory;
     std::unique_ptr<ShaderManager> shaders;
 
     std::vector<std::shared_ptr<AstronomicalObject>> objects;
+    std::unique_ptr<Trajectory> trajectory;
+
+    float animationSpeed = 1.0;
 
     Light light;
     Camera camera;
 
-    std::unique_ptr<Trajectory> trajectory;
+    bool rotationTranslationEnable = true;
+    bool trajectoryEnabled = false;
 
     void initializeGL();
     void resizeGL(int width, int height);

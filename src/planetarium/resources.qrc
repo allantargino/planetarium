@@ -1,12 +1,4 @@
 <RCC>
-    <qresource prefix="/shaders">
-        <file>shaders/ftexture.glsl</file>
-        <file>shaders/vtexture.glsl</file>
-        <file>shaders/geometry.glsl</file>
-        <file>shaders/fshader1.glsl</file>
-        <file>shaders/geometry_circle.glsl</file>
-        <file>shaders/vshader1.glsl</file>
-    </qresource>
     <qresource prefix="/textures">
         <file>textures/earth.jpg</file>
         <file>textures/sun.jpg</file>
@@ -23,5 +15,13 @@
     <qresource prefix="/offmodels">
         <file>offmodels/sphere.off</file>
         <file>offmodels/ring.off</file>
+    </qresource>
+    <qresource prefix="/shaders">
+        <file>shaders/ftexture.glsl</file>
+        <file>shaders/ftrajectory.glsl</file>
+        <file>shaders/gtexture.glsl</file>
+        <file>shaders/gtrajectory.glsl</file>
+        <file>shaders/vtexture.glsl</file>
+        <file>shaders/vtrajectory.glsl</file>
     </qresource>
 </RCC>

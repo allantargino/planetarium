@@ -10,17 +10,13 @@
 class Trajectory : public QOpenGLExtraFunctions
 {
 public :
-    Trajectory(QOpenGLWidget* _glWidget);
+    Trajectory(QOpenGLWidget* _glWidget, int _trajectories);
     ~Trajectory();
 
     QOpenGLWidget* glWidget;
 
-    GLuint shaderProgram;
-
     void createVBOs();
-    void createShaders();
     void destroyVBOs();
-    void destroyShaders();
 
     void startTrajectory();
     void drawModel();
@@ -31,6 +27,7 @@ public :
     GLuint vbo[3];
 
     int count = 0;
+    int trajectories;
     std::unique_ptr<QVector3D[]> startPoints;
     std::unique_ptr<QVector3D[]> colors;
     std::unique_ptr<float[]> radius;
