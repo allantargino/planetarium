@@ -1,4 +1,5 @@
 # version 400
+
 in vec3 fs_color;
 
 out vec4 out_Color;

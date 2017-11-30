@@ -1,4 +1,4 @@
-#version 410
+#version 400
 
 layout (triangles) in;
 layout (triangle_strip) out;
