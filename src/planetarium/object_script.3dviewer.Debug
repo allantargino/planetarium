@@ -1,0 +1,17 @@
+INPUT(
+./debug\main.o
+./debug\mainwindow.o
+./debug\openglwidget.o
+./debug\light.o
+./debug\material.o
+./debug\camera.o
+./debug\model.o
+./debug\modelfactory.o
+./debug\astronomicalobject.o
+./debug\shadermanager.o
+./debug\trajectory.o
+./debug\utils.o
+./debug\qrc_resources.o
+./debug\moc_mainwindow.o
+./debug\moc_openglwidget.o
+);
