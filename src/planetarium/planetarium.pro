@@ -24,7 +24,7 @@ SOURCES += main.cpp \
         astronomicalobject.cpp \
         shadermanager.cpp \
         trajectory.cpp \
-    utils.cpp
+        utils.cpp
 
 HEADERS  += mainwindow.h \
             openglwidget.h \
@@ -39,8 +39,6 @@ HEADERS  += mainwindow.h \
     utils.h
 
 FORMS    += mainwindow.ui
-
-DISTFILES +=
 
 RESOURCES += \
             resources.qrc \
